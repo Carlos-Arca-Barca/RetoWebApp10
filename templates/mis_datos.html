@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block titulo %}Mis datos{% endblock %}
+
+{% block contenido %}
+
+<div class="columns is-centered">
+  <div class="column is-half">
+
+    <div class="box">
+
+      <!-- HEADER -->
+      <div class="level mb-5">
+        <div class="level-left">
+
+          <span class="icon is-medium mr-2">
+            <i class="fa-solid fa-user fa-2x"></i>
+          </span>
+
+          <h1 class="title is-5 mb-0">
+            Perfil de usuario
+          </h1>
+
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- USUARIO -->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Usuario</label>
+        </div>
+
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text" value="{{ current_user.nombre }}" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Email</label>
+        </div>
+
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text" value="{{ current_user.email }}" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

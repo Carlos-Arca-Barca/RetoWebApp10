@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+
+<div class="columns is-centered">
+  <div class="column is-two-thirds">
+
+    <div class="box">
+
+      <h1 class="title">Lista de tareas</h1>
+
+      <!-- FORM -->
+      <form action="{{ url_for('nueva') }}" method="post">
+
+        <div class="field">
+          <label class="radio">
+            <input type="radio" name="modo" value="manual" checked>
+            Manual
+          </label>
+
+          <label class="radio">
+            <input type="radio" name="modo" value="inteligente">
+            Inteligente
+          </label>
+        </div>
+
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input" type="text" name="nombre" placeholder="Nueva tarea..." required>
+          </div>
+
+          <div class="control">
+            <button class="button is-primary">➕ Añadir</button>
+          </div>
+        </div>
+
+      </form>
+
+      <hr>
+
+      <!-- TAREAS -->
+      {% if tareas %}
+
+        {% for tarea in tareas %}
+
+          <div class="tarea-card">
+
+            <div class="level is-mobile">
+
+              <!-- TEXTO -->
+              <div class="level-left">
+
+                <form action="{{ url_for('completar', id=tarea.id) }}" method="post">
+                  <button class="button is-white">
+
+                    {% if tarea.completada %}
+                      <span class="has-text-grey-light">
+                        <s>{{ tarea.nombre }}</s>
+                      </span>
+                    {% else %}
+                      {{ tarea.nombre }}
+                    {% endif %}
+
+                  </button>
+                </form>
+
+              </div>
+
+              <!-- BOTONES -->
+              <div class="level-right task-actions">
+
+                <form action="{{ url_for('completar', id=tarea.id) }}" method="post">
+                  <button class="button is-success is-light is-small">✔</button>
+                </form>
+
+                <form action="{{ url_for('eliminar', id=tarea.id) }}" method="post">
+                  <button class="button is-danger is-light is-small">🗑</button>
+                </form>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        {% endfor %}
+
+      {% else %}
+        <p class="has-text-grey">No hay tareas pendientes</p>
+      {% endif %}
+
+      <!-- CONTADORES RESTAURADOS -->
+      <div class="level mt-4">
+
+        <div class="level-left">
+          <span class="tag is-info is-medium">
+            Total: {{ tareas_totales }}
+          </span>
+        </div>
+
+        <div class="level-right">
+          <span class="tag is-warning is-medium">
+            Pendientes: {{ tareas_pendientes }}
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

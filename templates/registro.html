@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block titulo %}Registro{% endblock %}
+
+{% block contenido %}
+
+<div class="columns is-centered">
+  <div class="column is-half">
+
+    <div class="box">
+
+      <!-- HEADER -->
+      <div class="level mb-5">
+        <div class="level-left">
+
+          <span class="icon is-medium mr-2">
+            <i class="fa-solid fa-user-plus fa-2x"></i>
+          </span>
+
+          <h1 class="title is-5 mb-0">
+            Registro de usuario
+          </h1>
+
+        </div>
+      </div>
+
+      <hr>
+
+      <form method="post">
+
+        <!-- USUARIO -->
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Usuario</label>
+          </div>
+
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" name="nombre" placeholder="Nuevo usuario" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Email</label>
+          </div>
+
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input class="input" type="email" name="email" placeholder="correo@ejemplo.com" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="field is-horizontal">
+          <div class="field-label is-normal">
+            <label class="label">Password</label>
+          </div>
+
+          <div class="field-body">
+            <div class="field">
+              <div class="control">
+                <input class="input" type="password" name="password" placeholder="Contraseña" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTÓN -->
+        <div class="field mt-5">
+          <div class="control">
+            <button class="button is-success is-fullwidth">
+              ➕ Crear usuario
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <hr>
+
+      <!-- LINK LOGIN -->
+      <div class="has-text-centered">
+        <p>
+          ¿Ya tienes cuenta?
+          <a href="{{ url_for('login') }}">Inicia sesión</a>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
