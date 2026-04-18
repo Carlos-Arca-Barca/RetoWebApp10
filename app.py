@@ -54,11 +54,7 @@ with app.app_context():
 @app.route('/', methods=['GET', 'POST'])
 @login_required
 def inicio():
-
-    print("USER:", current_user)
-    print("AUTH:", current_user.is_authenticated)
-    print("ID:", current_user.id)
-    
+ 
     tareas = db.session.scalars(db.select(Tarea).filter_by(usuario_id=current_user.id)).all()
     tareas_totales = len(tareas)
     tareas_pendientes = sum(1 for t in tareas if not t.completada)
@@ -103,8 +99,6 @@ def logout():
 
     logout_user()
     
-    current_user.is_authenticated == False   # En teoría no necesario
-
     flash("Sesión cerrada", "success")
     return redirect(url_for("login"))
 
@@ -122,7 +116,7 @@ def registro():
     # En este módulo si no se pasan las validadiones se redirige a 'registro' por lo que el formulario
     # queda con los datos vacíos.
     # La solución sería hacer un return render_template("registro.html", pagina="registro", nombre=nombre, email=email)
-    # pero en tal caso en el registro.htmal habría que utilizar esos datos (excepto en el password)
+    # pero en tal caso en el registro.html habría que utilizar esos datos (excepto en el password)
     # <input type="text" name="nombre" value="{{ nombre or '' }}">
     # <input type="email" name="email" value="{{ email or '' }}">
     # <input type="password" name="password">
@@ -256,7 +250,6 @@ def completar(id):
 @login_required
 def eliminar(id):
     
-    #tarea = Tarea.query.filter_by(id=id,usuario_id=current_user.id).first_or_404()
     tarea = db.session.scalar( db.select(Tarea).filter_by(id=id,usuario_id=current_user.id) )
     #Scalar espera 1 o none -> habría que comprobar que no es none antes de eliminar
 
