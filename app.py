@@ -53,13 +53,13 @@ with app.app_context():
 # ROUTE ----------------------------
 @app.route('/', methods=['GET', 'POST'])
 @login_required
-def inicio():
+def tareas():
  
     tareas = db.session.scalars(db.select(Tarea).filter_by(usuario_id=current_user.id)).all()
     tareas_totales = len(tareas)
     tareas_pendientes = sum(1 for t in tareas if not t.completada)
     
-    return render_template('inicio.html', tareas=tareas, tareas_totales=tareas_totales, tareas_pendientes=tareas_pendientes, pagina="inicio")
+    return render_template('tareas.html', tareas=tareas, tareas_totales=tareas_totales, tareas_pendientes=tareas_pendientes, pagina="tareas")
 
 
 # USUARIOS ------------------------------------
@@ -88,7 +88,7 @@ def login():
         login_user(usuario)
 
         flash(f"Bienvenido {usuario.nombre}", "success")
-        return redirect(url_for("inicio"))
+        return redirect(url_for("tareas"))
 
     return render_template("login.html", pagina="login")
 
@@ -164,7 +164,7 @@ def registro():
         db.session.commit()
 
         flash(f"Usuario '{nombre}' creado","success")
-        return redirect(url_for("inicio"))
+        return redirect(url_for("tareas"))
 
     return render_template("registro.html", pagina="registro")
 
@@ -220,7 +220,7 @@ def nueva():
             db.session.commit()
             flash(f"Tarea '{nombre}' creada","success")
 
-    return redirect(url_for("inicio"))
+    return redirect(url_for("tareas"))
 
 
 @app.route('/completar/<int:id>', methods=['POST'])
@@ -237,13 +237,13 @@ def completar(id):
     # No completar  SI CONTIENE "reto"
     if "reto" in nombre:
         flash(f"Es IMPOSIBLE '{tarea.nombre}' ...y lo sabes... 😏", "error")
-        return redirect(url_for("inicio"))
+        return redirect(url_for("tareas"))
 
     tarea.completada = not tarea.completada
 
     db.session.commit()
 
-    return redirect(url_for('inicio'))
+    return redirect(url_for('tareas'))
 
 
 @app.route('/eliminar/<int:id>', methods=['POST'])
@@ -260,16 +260,7 @@ def eliminar(id):
 
     flash(f"Tarea '{nombre}' eliminada","success")
 
-    return redirect(url_for("inicio"))
-
-
-@app.route('/datos')
-def datos():
-
-    valor = 55
-    nombre = "Carlos"
-    
-    return render_template('datos.html',edad=valor, nombre=nombre, pagina="datos")
+    return redirect(url_for("tareas"))
 
 
 @app.route('/about')

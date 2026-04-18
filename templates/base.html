@@ -132,22 +132,14 @@
 <!-- NAVBAR -->
 <nav class="navbar is-dark">
   <div class="navbar-brand">
-    <a class="navbar-item" href="{{ url_for('inicio') }}">
+    <a class="navbar-item" href="{{ url_for('tareas') }}">
       📝 Tareas
     </a>
   </div>
 
   <div class="navbar-menu is-active">
     <div class="navbar-start">
-
-      {% if current_user.is_authenticated %}
-        <a class="navbar-item" href="{{ url_for('inicio') }}">Inicio</a>
-        <a class="navbar-item" href="{{ url_for('mis_datos') }}">Mis datos</a>
-      {% endif %}
-
-      <a class="navbar-item" href="{{ url_for('datos') }}">Datos</a>
       <a class="navbar-item" href="{{ url_for('about') }}">About</a>
-
     </div>
 
     <div class="navbar-end">
